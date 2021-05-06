@@ -7,6 +7,7 @@ project(smvs LANGUAGES CXX VERSION 1.0.0)
 
 option(SMVS_BUILD_APP "Build the applications" ON)
 option(SMVS_BUILD_TOOLS "Build the tools" ON)
+option(SMVS_BUILD_TESTS "Build the tests" ON)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 include(GNUInstallDirs)
@@ -43,6 +44,10 @@ if(SMVS_BUILD_APP)
 endif()
 if(SMVS_BUILD_TOOLS)
     add_subdirectory(tools)
+endif()
+if(SMVS_BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
 endif()
 
 # Include module with function 'write_basic_package_version_file'
