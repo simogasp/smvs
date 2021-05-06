@@ -1,9 +1,3 @@
-find_package(JPEG REQUIRED)
-find_package(PNG REQUIRED)
-find_package(TIFF REQUIRED)
-find_package(Threads REQUIRED)
-find_package(mve REQUIRED)
-
 set(SMVS_SOURCES bicubic_patch.cc
         correspondence.cc
         delaunay_2d.cc

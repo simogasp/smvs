@@ -6,12 +6,19 @@ cmake_policy(SET CMP0048 NEW)
 project(smvs LANGUAGES CXX VERSION 1.0.0)
 
 option(SMVS_BUILD_APP "Build the applications" ON)
+option(SMVS_BUILD_TOOLS "Build the tools" ON)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 include(GNUInstallDirs)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+
+find_package(JPEG REQUIRED)
+find_package(PNG REQUIRED)
+find_package(TIFF REQUIRED)
+find_package(Threads REQUIRED)
+find_package(mve REQUIRED)
 
 
 # Layout. This works for all platforms:
@@ -33,6 +40,9 @@ set(namespace "${PROJECT_NAME}::")
 add_subdirectory(lib)
 if(SMVS_BUILD_APP)
     add_subdirectory(app)
+endif()
+if(SMVS_BUILD_TOOLS)
+    add_subdirectory(tools)
 endif()
 
 # Include module with function 'write_basic_package_version_file'
