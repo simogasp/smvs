@@ -60,3 +60,23 @@ set_target_properties(smvs PROPERTIES DEBUG_POSTFIX "d")
 target_compile_options(smvs PUBLIC -msse2 -msse3 -mpopcnt)
 
 target_link_libraries(smvs PUBLIC mve::mve_mve mve::mve_math mve::mve_util PRIVATE PNG::PNG JPEG::JPEG TIFF::TIFF Threads::Threads)
+
+# Targets:
+#   * <prefix>/lib/libmve_sfm.a
+#   * header location after install: <prefix>/include/*/*.h
+install(
+        TARGETS smvs
+        EXPORT ${targets_export_name}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_BINDIR}
+        INCLUDES DESTINATION "${include_install_dir}"
+)
+
+# Headers:
+#   * sfm/*.h -> <prefix>/include/sfm/*.h
+install(
+        DIRECTORY "${PROJECT_SOURCE_DIR}/lib"
+        DESTINATION "${include_install_dir}/smvs"
+        FILES_MATCHING PATTERN "*.h"
+)
