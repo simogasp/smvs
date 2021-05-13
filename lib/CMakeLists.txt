@@ -73,9 +73,7 @@ install(
 )
 
 # Headers:
-#   * sfm/*.h -> <prefix>/include/sfm/*.h
 install(
-        DIRECTORY "${PROJECT_SOURCE_DIR}/lib"
+        FILES ${SMVS_HEADERS}
         DESTINATION "${include_install_dir}/smvs"
-        FILES_MATCHING PATTERN "*.h"
 )
