@@ -51,7 +51,12 @@ target_include_directories(smvs PUBLIC
 set_target_properties(smvs PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(smvs PROPERTIES DEBUG_POSTFIX "d")
 
-target_compile_options(smvs PUBLIC -msse2 -msse3 -mpopcnt)
+if(NOT MSVC)
+    target_compile_options(smvs PUBLIC -msse2 -msse3 -mpopcnt)
+else()
+    # to use std::min and max
+    target_compile_definitions(smvs PUBLIC NOMINMAX)
+endif()
 
 target_link_libraries(smvs PUBLIC mve::mve_mve mve::mve_math mve::mve_util PRIVATE PNG::PNG JPEG::JPEG TIFF::TIFF Threads::Threads)
 
