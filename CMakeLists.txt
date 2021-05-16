@@ -10,6 +10,14 @@ option(SMVS_BUILD_TOOLS "Build the tools" ON)
 option(SMVS_BUILD_TESTS "Build the tests" ON)
 option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE Release)
+    message(STATUS "Build type not set, building in Release configuration")
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+else()
+    message(STATUS "Building in ${CMAKE_BUILD_TYPE} configuration")
+endif()
 include(GNUInstallDirs)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
