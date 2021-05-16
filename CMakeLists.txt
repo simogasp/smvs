@@ -19,6 +19,16 @@ else()
     message(STATUS "Building in ${CMAKE_BUILD_TYPE} configuration")
 endif()
 
+# ensure the proper linker flags when building the static version on MSVC
+if(MSVC AND NOT BUILD_SHARED_LIBS)
+    foreach(config "DEBUG" "RELEASE" "MINSIZEREL" "RELWITHDEBINFO")
+        string(REPLACE /MD /MT CMAKE_C_FLAGS_${config} "${CMAKE_C_FLAGS_${config}}")
+        string(REPLACE /MD /MT CMAKE_CXX_FLAGS_${config} "${CMAKE_CXX_FLAGS_${config}}")
+        message(STATUS "CMAKE_C_FLAGS_${config} ${CMAKE_C_FLAGS_${config}}")
+        message(STATUS "CMAKE_CXX_FLAGS_${config} ${CMAKE_CXX_FLAGS_${config}}")
+    endforeach()
+endif()
+
 # Warning flags
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 -DNOMINMAX -D_USE_MATH_DEFINES -D_CRT_SECURE_NO_WARNINGS")
